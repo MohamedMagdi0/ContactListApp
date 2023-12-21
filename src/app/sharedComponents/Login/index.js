@@ -32,7 +32,7 @@ const LoginComponent = ({
       if (email && password) {
         dispatch(signInWithEmailAndPassword(email, password, navigation));
       } else {
-        dispatch(setError('error: invalid request'));
+        dispatch(setError('error: invalid Credentials'));
         <Message danger onDismiss message={`Invalid Credentials`} />;
         console.log('error');
       }
@@ -117,8 +117,8 @@ const LoginComponent = ({
             <Text style={styles.infoText}>Need a new account?</Text>
             <TouchableOpacity
               onPress={() => {
-                SignOut();
-                // navigation.navigate('REGISTER');
+                // SignOut();
+                navigation.navigate('REGISTER');
               }}>
               <Text style={styles.linkBtn}>Register</Text>
             </TouchableOpacity>
