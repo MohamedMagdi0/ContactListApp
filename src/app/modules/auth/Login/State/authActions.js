@@ -18,3 +18,42 @@ export const signInWithEmailAndPassword =
       dispatch(setError(error));
     }
   };
+
+export const createUserWithEmailAndPassword =
+  (email, password, navigation) => async dispatch => {
+    try {
+      dispatch(setCredentials({email, password}));
+      console.log('-ay7aga');
+      const userCredential = await auth().createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+      dispatch(setUser(userCredential.user));
+      dispatch(clearError());
+      navigation.navigate('ContactsList');
+    } catch (error) {
+      console.log({error});
+      dispatch(setError(error));
+    }
+  };
+
+export const signOut = navigation => async dispatch => {
+  try {
+    // dispatch(setCredentials({email, password}));
+    console.log('-ay7aga');
+    navigation.navigate('LOGIN');
+    await auth().signOut();
+    // dispatch(setUser(userCredential.user));
+    dispatch(clearError());
+  } catch (error) {
+    console.log({error});
+    dispatch(setError(error));
+  }
+};
+
+// export const signOut = navigation => {
+//   auth()
+//     .signOut()
+//     .then(() => navigation.navigate('LOGIN'));
+//   console.log('User signed out!');
+// };
