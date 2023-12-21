@@ -1,33 +1,21 @@
-// import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {Image, Text, View, TouchableOpacity} from 'react-native';
 import Container from '../common/container';
 import CustomButton from '../common/CustomButton';
 import Input from '../common/Input';
 import styles from './styles';
-// import {LOGIN} from '../../constants/routeNames';
 import Message from '../common/message';
 import {useDispatch, useSelector} from 'react-redux';
 import {clearError, setError} from '../../modules/auth/Login/State/authSlice';
 import {createUserWithEmailAndPassword} from '../../modules/auth/Login/State/authActions';
 
-const RegisterComponent = ({
-  onSubmit,
-  onChange,
-  form,
-  loading,
-  // error,
-  errors,
-  navigation,
-}) => {
-  // const {navigate} = useNavigation();
+const RegisterComponent = ({loading, errors, navigation}) => {
   const [isSecureEntry, setIsSecureEntry] = useState(true);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const error = useSelector(state => state.auth.error);
-  console.log('useSelector(state => state.auth.error)', error);
 
   const dispatch = useDispatch();
   const handleSignUp = navigation => {
@@ -35,15 +23,12 @@ const RegisterComponent = ({
       if (email && password && password === confirmPassword) {
         dispatch(createUserWithEmailAndPassword(email, password, navigation));
       } else {
-        dispatch(setError('error: invalid request'));
-        <Message danger onDismiss message={`Invalid Credentials`} />;
-        console.log('error');
+        dispatch(setError('error: invalid Data'));
+        <Message danger onDismiss message={`Invalid Data`} />;
       }
     } catch (error) {
-      console.log({error});
-      dispatch(setError('error: invalid request'));
-      <Message danger onDismiss message={`Invalid Credentials`} />;
-      console.log('error');
+      dispatch(setError('error: invalid Data'));
+      <Message danger onDismiss message={`Invalid Data`} />;
     }
   };
   return (
@@ -55,7 +40,7 @@ const RegisterComponent = ({
         {error && (
           <Message
             danger
-            message={'error: invalid request'}
+            message={'error: invalid Data'}
             onDismiss={() => {
               clearError();
             }}
@@ -104,7 +89,6 @@ const RegisterComponent = ({
           />
           <CustomButton
             disabled={loading}
-            // onPress={onSubmit}
             onPress={() => {
               handleSignUp(navigation);
             }}

@@ -33,7 +33,6 @@ export default styles = StyleSheet.create({
   },
   xText: {
     color: colors.white,
-    // fontSize: 16,
     alignSelf: 'center',
   },
 });

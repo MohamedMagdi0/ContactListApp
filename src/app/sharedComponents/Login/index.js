@@ -1,24 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {Image, Text, View, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {Text, View, TouchableOpacity} from 'react-native';
 import Container from '../common/container';
 import CustomButton from '../common/CustomButton';
 import Input from '../common/Input';
 import styles from './styles';
 import Message from '../common/message';
-import auth from '@react-native-firebase/auth';
 import {useDispatch, useSelector} from 'react-redux';
 import {signInWithEmailAndPassword} from '../../modules/auth/Login/State/authActions';
 import {setError} from '../../modules/auth/Login/State/authSlice';
 
-const LoginComponent = ({
-  // error,
-  form,
-  justSignedUp,
-  onChange,
-  loading,
-  onSubmit,
-  navigation,
-}) => {
+const LoginComponent = ({justSignedUp, loading, navigation}) => {
   const [isSecureEntry, setIsSecureEntry] = useState(true);
 
   const [email, setEmail] = useState('');
@@ -26,7 +17,6 @@ const LoginComponent = ({
 
   const dispatch = useDispatch();
   const error = useSelector(state => state.auth.error);
-  console.log('useSelector(state => state.auth.error)', error);
   const handleSignIn = navigation => {
     try {
       if (email && password) {
@@ -34,20 +24,11 @@ const LoginComponent = ({
       } else {
         dispatch(setError('error: invalid Credentials'));
         <Message danger onDismiss message={`Invalid Credentials`} />;
-        console.log('error');
       }
     } catch (error) {
-      console.log({error});
       dispatch(setError('error: invalid request'));
       <Message danger onDismiss message={`Invalid Credentials`} />;
-      console.log('error');
     }
-  };
-
-  const SignOut = () => {
-    auth()
-      .signOut()
-      .then(() => console.log('User signed out!'));
   };
 
   return (

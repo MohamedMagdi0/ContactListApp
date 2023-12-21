@@ -1,20 +1,17 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import Avatar from '../Avatar';
 import {Linking} from 'react-native';
 import styles from './styles';
-import {deselectContact, selectContact} from '../../State/ContactsSlice';
+import {deselectContact} from '../../State/ContactsSlice';
 import {useDispatch} from 'react-redux';
 
 const SelectedContact = ({contact}) => {
-  // console.log('contact', contact);
   const dispatch = useDispatch();
 
   const openContact = contact => {
     console.log(contact);
     Linking.openURL(`tel:${contact?.phoneNumbers[0]?.number}`);
-
-    // Contacts.openExistingContact(contact);
   };
   const UnSelectContact = contact => {
     dispatch(deselectContact(contact));
@@ -32,7 +29,6 @@ const SelectedContact = ({contact}) => {
         style={styles.removeBtn}
         onPress={() => UnSelectContact(contact)}>
         <Text style={styles.xText}>x</Text>
-        {/* <Text style={styles.xText}>x</Text> */}
       </TouchableOpacity>
     </TouchableOpacity>
   );
