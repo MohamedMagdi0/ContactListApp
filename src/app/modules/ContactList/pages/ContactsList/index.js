@@ -24,6 +24,7 @@ import styles from './styles';
 import SearchBar from '../../components/SearchBar';
 import SelectedContact from '../../components/SelectedContact';
 import SelectedList from '../../components/SelectedList';
+import {signOut} from '../../../auth/Login/State/authActions';
 
 const ContactsList = ({navigation}) => {
   // const {contacts, search, selectedContacts, AllContacts} = useContacts();
@@ -143,16 +144,17 @@ const ContactsList = ({navigation}) => {
     <Contact contact={item} onPress={() => SelectToggle(item)} />
   );
 
-  const SignOut = () => {
-    auth()
-      .signOut()
-      .then(() => console.log('User signed out!'));
-    navigation.navigate('LOGIN');
+  const SignOut = navigation => {
+    dispatch(signOut(navigation));
   };
   return (
     <>
       <View style={styles.header}>
-        <Text onPress={SignOut} style={styles.text}>
+        <Text
+          onPress={() => {
+            SignOut(navigation);
+          }}
+          style={styles.text}>
           SignOut
         </Text>
         <View style={styles.AddParticipant}>
